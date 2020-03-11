@@ -29,9 +29,16 @@ class VoteResult extends Component {
         //console.log(predictResult);
     }
     componentDidMount() {
-        this.doRefreshChart()
-        this.doRefreshSummaryTable();
+        this.doInit();
     }
+
+    async doInit() {
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.doRefreshChart()
+            this.doRefreshSummaryTable();
+        });
+    }
+
 
     doRefreshSummaryTable() {
         const { predictResult } = this.props.route.params;
@@ -54,8 +61,6 @@ class VoteResult extends Component {
             row.push(obj.total_seat_amount);
 
             newTableData.push(row);
-
-            console.log(row);
         }
 
         this.setState({ tableData: newTableData });

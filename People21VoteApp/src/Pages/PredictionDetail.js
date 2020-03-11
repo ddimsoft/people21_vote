@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, Text, View, Button, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { Input } from 'react-native-elements';
+import { StyleSheet, TextInput, Text, View, Button, KeyboardAvoidingView, ScrollView } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { DataBase } from '../common/DataBase';
 import  EzColorPicker  from '../common/EzColorPicker';
+import * as EzConstants from "../common/Constants";
 
 /**
  * 상단 타이틀 구현 
@@ -34,14 +34,12 @@ class Item extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            party_name: props.obj.party_name,
-            party_ratio: props.obj.party_ratio,
-            party_color: props.obj.party_color,
-            local: props.obj.local,
-            party_type : props.obj.party_type,
-            id: props.obj.predict_id
+            party_name: '',
+            party_ratio: 0,
+            party_color: '',
+            local: 0,
+            party_type : ''
         };
-        var ColorIs	= this.ColorIs.bind(this);
     }
 
     ColorIs(str) {
@@ -50,33 +48,54 @@ class Item extends Component {
         this.props.parentRef.updatePartyColor(this.state.id, str.color);
     }
 
+    checkNumericDigit(text) {
+        let newText = '';
+        let numbers = '0123456789.';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                // your call back function
+                alert("숫자로 입력하세요.");
+            }
+        }
+        return newText;
+    }
+
     render() {
+        let obj = this.props.obj;
         // 정당별 득표율 TextField를 정의 합니다. 
         // 무소속인 경우 Text로 대체 합니다. 
         let ratioInput;
-        if(this.state.party_type== "PT01") 
-            ratioInput = <TextInput
-                                    style={styles.item_input}
-                                    defaultValue={String(this.state.party_ratio)}
-                                    numericvalue
-                                    keyboardType={'numeric'}
-                                    onChangeText={text => {
-                                        this.props.parentRef.updateApprovalRate(this.state.id, text);
-                                    }} />;
+        if(obj.party_type== "PT01") 
+        ratioInput = <TextInput
+                        style={styles.item_input}
+                        defaultValue={String(obj.party_ratio)}
+                        keyboardType='numeric'
+                        selectTextOnFocus={true}
+                        value = {this.state.party_ratio}
+                        onChangeText={text => {
+                            let num_value = this.checkNumericDigit(text);
+                            this.setState({ party_ratio: num_value });
+                            this.props.parentRef.updateApprovalRate(this.state.id, num_value);
+                        }} />;
+            
+            
         else 
             ratioInput = <Text></Text>;
-
-        var	ColorIs	=	this.ColorIs;    
-
+        
         return (
             <View style={styles.item}>
                 <View style={{ flex: 2 }}>
                     <View style={{flex :1, flexDirection: 'row'}}>
-                        <EzColorPicker style={{width:30, height:40}} oriColor={this.state.party_color} parentResolve={ColorIs.bind(this)}/>
+                        <EzColorPicker style={{width:30, height:40}} oriColor={obj.party_color} parentResolve={this.ColorIs.bind(this)}/>
                         <View style={{flex:1}}>
                             <TextInput
                                 style={styles.item_party_name_input}
-                                defaultValue={this.state.party_name}
+                                defaultValue={obj.party_name}
+                                selectTextOnFocus={true}
                                 onChangeText={text => {
                                     this.props.parentRef.updatePartyName(this.state.id, text);
                                 }} />
@@ -89,12 +108,16 @@ class Item extends Component {
                 <View style={{ flex: 1 }}>
                     <TextInput
                         style={styles.item_input}
-                        defaultValue={String(this.state.local)}
-                        numericvalue
-                        keyboardType={'numeric'}
+                        defaultValue={String(obj.local)}
+                        selectTextOnFocus={true}
+                        keyboardType='numeric'
+                        value = {this.state.local}
                         onChangeText={text => {
-                            this.props.parentRef.updateeEectedAmount(this.state.id, text);
+                            let num_value = this.checkNumericDigit(text);
+                            this.setState({ local: num_value });
+                            this.props.parentRef.updateLocalAmount(this.state.id, num_value);
                         }} />
+                        
                 </View>
             </View>
         );
@@ -130,6 +153,11 @@ class PredictList extends Component {
     }
 }
 
+/**
+ * 의석수 계산을 위해 
+ * 입력폼을 생성 하는 
+ * 클래스 입니다. 
+ */
 class PredictionDetail extends Component {
     constructor(props) {
         super(props);
@@ -137,11 +165,16 @@ class PredictionDetail extends Component {
             data: []
         }
         this.db = new DataBase();
-        this.myRef = React.createRef();
     }
 
+    /**
+     * navigation router param에 따라 
+     * 신규 등록 모드/수정 모드가 구분 됩니다. 
+     */
     componentDidMount() {
-        this.doInit();
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.doToggleViewMode();
+        });
     }
 
     componentWillUnmount() {
@@ -150,10 +183,29 @@ class PredictionDetail extends Component {
     }
 
     /**
+     * props.route의 값에 
+     * 따라 신규 등록 모드 수정 모드를 
+     * 구분합니다. 
+     */
+    doToggleViewMode() {
+        // router param이 존재하는 경우 수정 모드로 처리 합니다, 
+        if(this.props.route.params != undefined) {
+            const { predictResult } = this.props.route.params;
+            //console.log(predictResult);
+            this.crudMode = this.props.route.params.crudMode;
+            this.setState({ data: predictResult });
+        }
+        else {
+            this.crudMode = EzConstants.CRUD_MODE_INSERT;
+            this.doInit();
+        }
+    }
+
+    /**
      * Database를 
      * Open하고 
      * 최근 리스트를 요청 합니다. 
-     */
+     */ 
     async doInit() {
         try {
             await this.db.openDb()
@@ -196,7 +248,6 @@ class PredictionDetail extends Component {
         let result = -1;
         for (let i = 0; i < this.state.data.length; i++) {
             let obj = this.state.data[i];
-            //console.log(obj);
             if (predictId == obj.predict_id) {
                 result = i;
                 break;
@@ -261,7 +312,7 @@ class PredictionDetail extends Component {
      * @param {*} predictId  : 정당 Index
      * @param {*} electedAmount : 의석수 
      */
-    updateeEectedAmount(predictId, electedAmount) {
+    updateLocalAmount(predictId, electedAmount) {
         let idx = this.getPredictItemIndexById(predictId);
         let obj = this.getPredictItemByID(predictId);
 
@@ -272,23 +323,51 @@ class PredictionDetail extends Component {
     }
 
     /**
+     * 사용자의 입력값을 
+     * 체크합니다. 
+     */
+    checkUserInput() {
+        let result = false;
+
+        //this.state.data.map((item, index)=>{
+        
+        for(let i0; i<this.state.data.length; i++) {
+            let item = this.state.data[i];
+            console.log(item.party_name + " " + item.party_ratio ) ;
+            if(item.party_ratio == "") {
+                alert("[" + item.party_name  + "] 정당 지지율을 입력하세요.");
+                result = false;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * 현재 예측 값을 
      * 기준으로 
      * 의석수 예츨 결과를 요청 합니다. 
      */
     reqCalculate() {
 
+        // 사용자의 입력값이 
+        // 오류가 있는 경우 이벤트를 종료 합니다. \
+        console.log("try to recalculate...");
+        if(!this.checkUserInput()) 
+            return;
+        console.log("try to recalculate..1.");
+
         // 예측 결과 요청 
         RNFetchBlob.config({
             trusty: true
         })
-            .fetch('POST', 'https://renewhouse.iptime.org:8444/vote_predict/predict_result/', {
+            .fetch('POST', EzConstants.SERVER_ADDRESS , {
                 'Content-Type': 'application/json'}, 
                 JSON.stringify({ obj: this.state.data })
             )
             .then((res) => {
-                let json = res.json()
-                //console.log(json.rows);
+                let json = res.json();
                 // Detail Page로 이동 합니다. 
                 this.props.navigation.navigate('VoteResult', { predictResult: json.rows });
             })
