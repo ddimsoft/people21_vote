@@ -304,6 +304,69 @@ class DataBase {
             })
         });
     }
+
+    
+    /**
+     * 예측 결과를 수정 합니다. 
+     * @param {} predictList 
+     */
+    async doUpdatePredict(predictList) {
+        console.log("[DataBase] Try to Update Predict List");
+        return new Promise((resolve, reject) => {
+            let updateCnt = 0;
+            this.db.transaction((tx) => {
+                try {
+                    for(let i=0; i<predictList.length; i++) {
+                        console.log("[DataBase] Try to Update Predict Recordr");
+                        let obj = predictList[i];
+                        //console.log(obj);
+                        tx.executeSql(
+                            'update predict set ' +
+                            ' predict_group_id = ?,  predict_id = ?, ' +
+                            ' party_name = ?, local =? , party_ratio = ?, ' +
+                            ' party_color = ?, ' +
+                            ' r1_value = ? , r2_value = ?, ' +                      // r1_value : 준연동형 비례, r2_value: 병립형 비례 
+                            ' total_seat_amount = ?, total_seat_ratio =? , ' +     // total_seat_amount : 최종 의석수 , total_seat_ratio : 의석비율 
+                            ' party_type = ?' + 
+                            ' where ' +
+                            '       predict_group_id = ? ' +
+                            ' and   predict_id = ? ',
+                            [ 
+                                obj.predict_group_id, obj.predict_id, 
+                                obj.party_name, obj.local, obj.party_ratio, 
+                                obj.party_color, 
+                                obj.r1_value, obj.r2_value,
+                                obj.total_seat_amount, obj.total_seat_ratio,
+                                obj.party_type,
+                                obj.predict_group_id, obj.predict_id
+                            ],
+                            (tx, results) => {
+                                updateCnt  = updateCnt + results.rowsAffected;
+                            },
+                            (err) => { 
+                                console.log(err);
+                                throw err;
+                             }
+                        );
+                        
+                    }
+
+                    resolve(updateCnt);
+                }
+                catch(err) {
+                    console.log("에러 발생");
+                    console.log(err);
+                    reject(err);
+                }
+                
+                
+            });
+            
+            
+            
+        });
+    }
+
 }
 
 export { DataBase }; 

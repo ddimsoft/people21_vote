@@ -28,7 +28,7 @@ const App: () => React$Node = () => {
     <NavigationContainer>
         <Tab.Navigator>
         <Tab.Screen name="Prediction" component={Prediction} options={{tabBarLabel:'의석수계산'}} />
-        <Tab.Screen name="VoteHistory" component={VoteHistory} options={{tabBarLabel:'저장이력'}}/>
+        <Tab.Screen name="VoteHistory" component={VoteHistory} options={{tabBarLabel:'예측목록'}}/>
         <Tab.Screen name="AboutPeople21" component={AboutPeople21} options={{tabBarLabel:'참여연대소개'}}/>
       </Tab.Navigator>
     </NavigationContainer>

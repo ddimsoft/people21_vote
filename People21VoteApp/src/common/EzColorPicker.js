@@ -14,6 +14,8 @@ export default class EzColorPicker extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      color : '',
+      view_color : '',
     };    
   }
     
@@ -25,9 +27,28 @@ export default class EzColorPicker extends Component {
    * @param {*} color 
    */
   doSelectColor(color) {
+    this.setState({
+      view_color : color,
+      color : color
+    });
+
     this.props.parentResolve({color}); 
     this.setModalVisible(false);
   }  
+
+  /**
+   * 스크롤에서 
+   * 칼라를 변경하는 
+   * 색을 반영 합니다. 
+   * @param {} color 
+   */
+  
+  onColorChange(color) {
+    console.log("try to change...");
+    console.log(color);
+    this.setState({ color : color })
+  }
+  
 
   /**
    * 화면의 활성화 
@@ -37,6 +58,35 @@ export default class EzColorPicker extends Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
+
+  /**
+   * render함수 이전에 호출되는 
+   * 함수 입니다. 
+   * 
+   * View의 Backgroup color를 나타내는 
+   * view_color의 값이 변경된 이벤트와 
+   * color_picker의 color 값이 변경된 
+   * 이벤트를 처리 합니다 .
+   * @param {} nextProps 
+   * @param {*} prevState 
+   */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(prevState.view_color != nextProps.oriColor) {
+      isUpdated = true;
+      return {
+        view_color: nextProps.oriColor
+      };
+    }
+
+    // color picker의 color가 변경되었는지 체크 합니다 .
+    if(prevState.color != nextProps.color) {
+      return {
+        color: nextProps.color
+      };
+    }
+    return null;
+  }
+  
 
   render() {
     return (
@@ -49,11 +99,10 @@ export default class EzColorPicker extends Component {
             this.setModalVisible(false);
           }}>
             <View style={{flex: 1, padding: 45, backgroundColor: '#212021'}}>
-              <Text style={{color: 'white'}}>React Native Color Picker - Controlled</Text>
               <ColorPicker
-                oldColor='purple'
-                color={this.state.color}
-                onColorChange={this.onColorChange}
+                oldColor={this.props.oriColor}
+                color={this.state.picker_color}
+                onColorChange={color => { this.onColorChange(color)}}
                 onColorSelected={color => { this.doSelectColor(color)}}
                 onOldColorSelected={color => { this.doSelectColor(color)}}
                 style={{flex: 1}}
@@ -65,7 +114,7 @@ export default class EzColorPicker extends Component {
           onPress={() => {
             this.setModalVisible(true);
           }}>
-            <View style={{with:20, height:20, backgroundColor : this.props.oriColor}} />
+            <View style={{with:20, height:20, backgroundColor : this.state.view_color}} />
         </TouchableHighlight>
       </View>
     );

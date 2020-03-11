@@ -133,7 +133,10 @@ class VoteHistory extends Component {
      * 조회 합니다. 
      */
     componentDidMount() {
-        this.doInit();
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.doInit();    
+        })
+        
     }
 
     /**
@@ -144,14 +147,11 @@ class VoteHistory extends Component {
     }
 
     async doInit() {
-        await this.db.openDb();
-        this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            this.doRefresh();
-        });
+        await this.db.openDb()
+        this.doRefresh();
     }
 
-
-
+    
     /**
      * 저장 이력을 
      * 갱신 합니다. 
@@ -195,8 +195,6 @@ class VoteHistory extends Component {
 
     // 수정 화면으로 이동 합니다. 
     doMoveToEdit(item) {
-        console.log("Recieved Idx Is : ");
-        //console.log(item);
         this.props.navigation.navigate('PredictionDetail', { predictResult: item.data, crudMode : EzConstants.CRUD_MODE_EDIT });
     }
 

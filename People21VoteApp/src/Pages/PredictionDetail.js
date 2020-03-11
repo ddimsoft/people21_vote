@@ -45,7 +45,7 @@ class Item extends Component {
     ColorIs(str) {
         this.setState({party_color : str.color});
         // 당별 색상을 변경 합니다. 
-        this.props.parentRef.updatePartyColor(this.state.id, str.color);
+        this.props.parentRef.updatePartyColor(this.props.obj.predict_id, str.color);
     }
 
     checkNumericDigit(text) {
@@ -66,6 +66,7 @@ class Item extends Component {
 
     render() {
         let obj = this.props.obj;
+  
         // 정당별 득표율 TextField를 정의 합니다. 
         // 무소속인 경우 Text로 대체 합니다. 
         let ratioInput;
@@ -75,11 +76,12 @@ class Item extends Component {
                         defaultValue={String(obj.party_ratio)}
                         keyboardType='numeric'
                         selectTextOnFocus={true}
+                        maxLength={5}
                         value = {this.state.party_ratio}
                         onChangeText={text => {
                             let num_value = this.checkNumericDigit(text);
                             this.setState({ party_ratio: num_value });
-                            this.props.parentRef.updateApprovalRate(this.state.id, num_value);
+                            this.props.parentRef.updatePartyRatio(obj.predict_id, num_value);
                         }} />;
             
             
@@ -95,9 +97,10 @@ class Item extends Component {
                             <TextInput
                                 style={styles.item_party_name_input}
                                 defaultValue={obj.party_name}
+                                maxLength={15}
                                 selectTextOnFocus={true}
                                 onChangeText={text => {
-                                    this.props.parentRef.updatePartyName(this.state.id, text);
+                                    this.props.parentRef.updatePartyName(obj.predict_id, text);
                                 }} />
                         </View>
                     </View>
@@ -111,11 +114,12 @@ class Item extends Component {
                         defaultValue={String(obj.local)}
                         selectTextOnFocus={true}
                         keyboardType='numeric'
+                        maxLength={3}
                         value = {this.state.local}
                         onChangeText={text => {
                             let num_value = this.checkNumericDigit(text);
                             this.setState({ local: num_value });
-                            this.props.parentRef.updateLocalAmount(this.state.id, num_value);
+                            this.props.parentRef.updateLocalAmount(obj.predict_id, num_value);
                         }} />
                         
                 </View>
@@ -162,7 +166,9 @@ class PredictionDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            current_ratio : 0,
+            current_local : 0,
         }
         this.db = new DataBase();
     }
@@ -212,6 +218,11 @@ class PredictionDetail extends Component {
             await this.db.getLastPredictionList().then((predictList) => {
                 this.setState({ data: predictList });
             });
+
+            // 정당 지지율 합계를 갱신 합니다. 
+            this.doReCalculatePartyRationSum();
+            // 지역 의석수 합계를 갱신 합니다. 
+            this.doReCalculateLoalSum();
         }
         catch (err) {
             console.log("[PredictionDetail]---------------------------------");
@@ -265,7 +276,6 @@ class PredictionDetail extends Component {
     updatePartyColor(predictId, colorStr) {
         let idx = this.getPredictItemIndexById(predictId);
         let obj = this.getPredictItemByID(predictId);
-
         if (obj.predict_id != null) {
             obj.party_color = colorStr;
             this.state.data[idx] = obj;
@@ -295,14 +305,22 @@ class PredictionDetail extends Component {
      * @param {*} predictId  : 정당 Index
      * @param {*} approvalRate : 득표율
      */
-    updateApprovalRate(predictId, approvalRate) {
+    updatePartyRatio(predictId, approvalRate) {
         let idx = this.getPredictItemIndexById(predictId);
         let obj = this.getPredictItemByID(predictId);
 
         if (obj.predict_id != null) {
+            approvalRate = parseFloat(approvalRate);
+            if( isNaN(approvalRate)) {
+                approvalRate = 0;
+            }
+
             obj.party_ratio = approvalRate;
             this.state.data[idx] = obj;
         }
+
+        // 정당 지지율 합계를 갱신 합니다. 
+        this.doReCalculatePartyRationSum();
     }
 
     /**
@@ -317,9 +335,53 @@ class PredictionDetail extends Component {
         let obj = this.getPredictItemByID(predictId);
 
         if (obj.predict_id != null) {
+            electedAmount = parseInt(electedAmount);
+            if( isNaN(electedAmount)) {
+                electedAmount = 0;
+            }
             obj.local = electedAmount;
             this.state.data[idx] = obj;
         }
+        
+        // 지역 의석수 합계를 갱신 합니다. 
+        this.doReCalculateLoalSum();
+    }
+
+    /**
+     * 정당 지지율의 합계를 
+     * 재 계산 합니다. 
+     */
+    doReCalculatePartyRationSum() {
+        let ratioTotal = 0;
+        for(let i=0; i<this.state.data.length; i++) {
+            let item = this.state.data[i];
+            ratioTotal = (ratioTotal + item.party_ratio);
+        }
+        ratioTotal = new Number(ratioTotal).toFixed(2);
+
+        if(ratioTotal > 100) {
+            alert("정당 지지율 합계를 100 이하로 설정해 주세요. ");
+        }
+
+        this.setState({current_ratio:ratioTotal});
+    }
+
+    /**
+     * 지역 의석수의 합계를 
+     * 재 계산 합니다. 
+     */
+    doReCalculateLoalSum() {
+        let localTotal = 0;
+        for(let i=0; i<this.state.data.length; i++) {
+            let item = this.state.data[i];
+
+            localTotal = localTotal + item.local;
+        }
+        if(localTotal > 253) {
+            alert("지역 의석수 합계는 최대 253개 입니다. ");
+        }
+
+        this.setState({current_local:localTotal});
     }
 
     /**
@@ -327,18 +389,26 @@ class PredictionDetail extends Component {
      * 체크합니다. 
      */
     checkUserInput() {
-        let result = false;
+        let result = true;
 
-        //this.state.data.map((item, index)=>{
-        
-        for(let i0; i<this.state.data.length; i++) {
+        for(let i=0; i<this.state.data.length; i++) {
             let item = this.state.data[i];
-            console.log(item.party_name + " " + item.party_ratio ) ;
-            if(item.party_ratio == "") {
-                alert("[" + item.party_name  + "] 정당 지지율을 입력하세요.");
+            if(item.party_name == "") {
+                alert("정당명을 입력해 주세요.");
                 result = false;
                 break;
             }
+        }
+
+        // 지지율 합계를 체크 합니다. 
+        if(result && this.state.current_ratio != 100) {
+            alert("지지율의 합계가 100이 되어야 합니다.  ");
+            result = false;
+        }
+        // 지역구 의석 합계를 체크 합니다. 
+        if(result && this.state.current_local != 253) {
+            alert("지역구 의석 합계가 253이 되어야 합니다.  ");
+            result = false;
         }
 
         return result;
@@ -353,10 +423,9 @@ class PredictionDetail extends Component {
 
         // 사용자의 입력값이 
         // 오류가 있는 경우 이벤트를 종료 합니다. \
-        console.log("try to recalculate...");
         if(!this.checkUserInput()) 
             return;
-        console.log("try to recalculate..1.");
+        
 
         // 예측 결과 요청 
         RNFetchBlob.config({
@@ -369,12 +438,11 @@ class PredictionDetail extends Component {
             .then((res) => {
                 let json = res.json();
                 // Detail Page로 이동 합니다. 
-                this.props.navigation.navigate('VoteResult', { predictResult: json.rows });
+                this.props.navigation.navigate('VoteResult', { predictResult: json.rows , crudMode : this.crudMode});
             })
             .catch((error) => {
                 console.log(error);
             });
-
     }
 
     render() {
@@ -387,6 +455,17 @@ class PredictionDetail extends Component {
                         parentRef={this}
                         data={this.state.data} />
                 </ScrollView>
+                <View style={styles.title_bar}>
+                    <View style={styles.title_bar_partyname}>
+                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>합계</Text>
+                    </View>
+                    <View style={styles.title_bar_cell}>
+                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>{this.state.current_ratio}</Text>
+                    </View>
+                    <View style={styles.title_bar_cell}>
+                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>({this.state.current_local}/253)</Text>
+                    </View>
+                </View>
                 <Button onPress={() => this.reqCalculate()} title="계산하기" />
             </KeyboardAvoidingView>
         );

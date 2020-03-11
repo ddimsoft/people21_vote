@@ -7,6 +7,9 @@ import { DataBase } from '../common/DataBase';
 import ViewShot from "react-native-view-shot";
 import Share from 'react-native-share';
 import { captureRef } from "react-native-view-shot";
+import * as EzConstants from "../common/Constants";
+import { toHsv } from 'react-native-color-picker';
+
 /**
  * EzRoadApp
  * Class : VoteResult
@@ -24,28 +27,32 @@ class VoteResult extends Component {
             highlights: [],
             description: {},
             tableHead: ['정당명', '득표율', '지역구', '준연동형', '병립형', '합계'],
-            tableData: []
+            tableData: [], 
+            crudMode : ''
         };
         //console.log(predictResult);
     }
     componentDidMount() {
-        this.doInit();
-    }
-
-    async doInit() {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
-            this.doRefreshChart()
-            this.doRefreshSummaryTable();
+            this.doInit();
         });
     }
 
+    /**
+     * 화면을 초기화 합니다. 
+     */
+    async doInit() {
 
-    doRefreshSummaryTable() {
+        await this.doRefreshChart()
+        await this.doRefreshSummaryTable();
+    }
+
+    /**
+     * 하단의 요약 테이블의 
+     * 데이터를 갱신 합니다. 
+     */
+    async doRefreshSummaryTable() {
         const { predictResult } = this.props.route.params;
-
-        console.log("-------------------------------------------");
-        console.log(predictResult.length);
-        console.log("-------------------------------------------");
 
         let newTableData = [];
 
@@ -70,7 +77,7 @@ class VoteResult extends Component {
      * Pie Chart를 
      * 작성 합니다. 
      */
-    doRefreshChart() {
+    async doRefreshChart() {
         const { predictResult } = this.props.route.params;
         var dataSetsValue = []
         var dataStyle = {}
@@ -82,7 +89,6 @@ class VoteResult extends Component {
         for (let i = 0; i < predictResult.length; i++) {
             let obj = predictResult[i];
             valueLegend.push({ value: Number(obj.total_seat_amount), label: obj.party_name })
-            console.log(obj.party_color);
             colorLegend.push(processColor(obj.party_color));
         }
         const datasetObject = {
@@ -122,17 +128,37 @@ class VoteResult extends Component {
      * DB에 저장 요청 합니다. 
      */
     async doStoreHistory() {
-        let db = new DataBase();
-        let navigation = this.props.navigation;
-
-        const { predictResult } = this.props.route.params;
-
         try {
+            const { predictResult } = this.props.route.params;
+            let db = new DataBase();
+
             await db.openDb();
             await db.doStorePredict(predictResult);
                     
             // 저장 이력 화면으로 이동 합니다.  
-            navigation.navigate('VoteHistory', { name: 'VoteHistory' });
+            this.props.navigation.navigate('VoteHistory', { name: 'VoteHistory' });
+        }
+        catch(err) {
+            console.log("[VoteResult]---------------------------------");
+            console.log(err);
+            console.log("[VoteResult]---------------------------------");
+        }
+        
+    }
+
+    /**
+     * 예측 결과를 
+     * DB에 수정 요청 합니다. 
+     */
+    async doUpdateHistory() {
+        try {
+            const { predictResult } = this.props.route.params;
+            let db = new DataBase();
+            await db.openDb();
+            await db.doUpdatePredict(predictResult);
+                    
+            // 저장 이력 화면으로 이동 합니다.  
+            this.props.navigation.navigate('VoteHistory', { name: 'VoteHistory' });
         }
         catch(err) {
             console.log("[VoteResult]---------------------------------");
@@ -164,17 +190,42 @@ class VoteResult extends Component {
      */
     doShareToSNS (content) {
         let img_str = "data:image/jpeg;base64," + content;
-
         let shareOption = {
-            title : 'test...',
+            title : '참여연대에서 개발한 21대 총선 의석수 예측 결과입니다. ',
             url : img_str
         };
-
         Share.open(shareOption)
         .then((res) => { console.log(res) })
         .catch((err) => { err && console.log(err); });
     }
+
+    /**
+     * 화면을 구성 합니다. 
+     */
     render() {
+        
+        this.crudMode = this.props.route.params.crudMode;
+        let btnGroup;
+
+        if(this.crudMode == EzConstants.CRUD_MODE_INSERT) {
+            btnGroup =  <View style={{flex:1}}>
+                            <Button style={{ flex: 1 }} onPress={() => this.doStoreHistory()} title="예측 저장" />
+                        </View>;
+        }
+        else if(this.crudMode == EzConstants.CRUD_MODE_EDIT) {
+            btnGroup =  <View style={ { flex:2, flexDirection:'row'} }>
+                            <View style={{ flex: 1 }}>
+                                <Button  onPress={() => this.doUpdateHistory()} title="예측 수정" />
+                            </View>
+                            <View style={{ flex: 1 }}>
+                                <Button  onPress={() => this.doStoreHistory()} title="예측 추가" />    
+                            </View>
+                        </View>;
+        }
+        else {
+            btnGroup = <View></View>
+        }
+
         return (
             <SafeAreaView style={styles.container}>
                 <ViewShot ref="viewShot" style={{flex : 1 }}>
@@ -196,8 +247,10 @@ class VoteResult extends Component {
                 </ViewShot>
                 <View>
                     <View style={styles.ButtonGroup}>
-                        <Button style={{ flex: 1 }} onPress={() => this.doStoreHistory()} title="저장하기" />
-                        <Button style={{ flex: 1 }} onPress={() => this.doMakeResultImage()} title="공유하기" />
+                        {btnGroup}
+                        <View style={{ flex: 1 }}>
+                            <Button  onPress={() => this.doMakeResultImage()} title="공유하기" />
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>
@@ -213,7 +266,7 @@ const styles = StyleSheet.create({
         height: 350
     },
     ButtonGroup: {
-        justifyContent: 'center',
+        width:'100%',
         flexDirection: "row"
     },
     head: { height: 40, backgroundColor: '#f1f8ff', justifyContent: 'center' },
