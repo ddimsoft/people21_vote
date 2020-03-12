@@ -420,13 +420,11 @@ class PredictionDetail extends Component {
      * 의석수 예츨 결과를 요청 합니다. 
      */
     reqCalculate() {
-
         // 사용자의 입력값이 
         // 오류가 있는 경우 이벤트를 종료 합니다. \
         if(!this.checkUserInput()) 
             return;
         
-
         // 예측 결과 요청 
         RNFetchBlob.config({
             trusty: true

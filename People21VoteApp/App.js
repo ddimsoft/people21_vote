@@ -23,6 +23,7 @@ import AboutPeople21 from "./src/Pages/AboutPeople21"
 const Tab = createMaterialTopTabNavigator();
 
 const App: () => React$Node = () => {
+  console.disableYellowBox = true;
   return (
     <>
     <NavigationContainer>

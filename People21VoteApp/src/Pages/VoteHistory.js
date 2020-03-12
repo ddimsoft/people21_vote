@@ -14,6 +14,8 @@ import * as EzConstants from "../common/Constants";
  *
  * Created By 최영호 on 2020-02-28
  */
+
+
 class Item extends Component  {
     constructor(props) {
         super(props);
@@ -24,10 +26,10 @@ class Item extends Component  {
             offset : 50, 
 
         }
-        this.doInit();
     }
     
     doInit() {
+        this.tableData = [];
         this.props.record.data.map((obj, i) => {
             let row = [
                 obj.party_name,
@@ -42,27 +44,59 @@ class Item extends Component  {
         });
     }
 
-    // 
+    /**
+     * 수정 요청 이벤트를 
+     * 처리 합니다. 
+     * 
+     * Dialog를 종료 하고 
+     * props의 onMoveToEdit함수를 호출 합니다. 
+     */
     onReqEdit() {
         this.closeModal();
         this.props.onMoveToEdit(this.props.record);
     }
 
+    /**
+     * Chart 조회 요청 이벤트를 
+     * 처리 합니다. 
+     * 
+     * Dialog를 종료 하고 
+     * props의 doMoveToChart함수를 호출 합니다. 
+     */
     onReqMoveToChart() {
         this.closeModal();
         this.props.doMoveToChart(this.props.record);
     }
 
+    /**
+     * 레코드를 
+     * 클릭한 이벤트를 처리 합니다. 
+     * 
+     * modalVisible state value를 
+     * true로 설정 하여 
+     * 
+     * Dialog를 활성화 합니다. 
+     */
     onClickPressed() {
         this.setState({modalVisible:true});
     }
 
+    /**
+     * Dialog의 닫기 버튼을
+     * 클릭한 이벤트를 처리 합니다. 
+     * 
+     * modalVisible state value를 
+     * false로 설정 하여 
+     * 
+     * Dialog를 비 활성화 합니다. 
+     */
     closeModal() {
         this.setState({modalVisible:false});
     }
 
     styles = StyleSheet.create({
-        content: {
+        
+        dialog_container: {
           backgroundColor: 'white',
           padding: 22,
           justifyContent: 'center',
@@ -70,18 +104,48 @@ class Item extends Component  {
           borderRadius: 4,
           borderColor: 'rgba(0, 0, 0, 0.1)',
         },
+        
+        head : {
+            backgroundColor : '#F2FCFE',      
+            height : 40,  
+        },
+        head_text : {
+            color : '#067FA3',        
+            textAlign : 'center',
+        },
+        row_text : {
+            margin: 1, alignItems: 'center', textAlign: 'center' 
+        },
+        item: {
+            backgroundColor: '#FFFFFF',
+            marginVertical: 8,
+            borderColor : '#E3E7E8',
+            borderStyle : 'solid',
+        },
+        reg_date : {
+            flex : 1,
+            fontSize: 12,
+            color : '#EBF0F3',
+            textAlign : 'right'
+        }
+        /*
+        head: { height: 40, backgroundColor: '#f1f8ff', justifyContent: 'center' },
+    head_text: { margin: 3, textAlign: 'center' },
+    text: { margin: 1, alignItems: 'center', textAlign: 'center' }
         contentTitle: {
           fontSize: 20,
           marginBottom: 12,
         },
+        */
       });
 
     render() {
+        this.doInit();
         return (
-            <View>
+            <View style={this.styles.item}>
                 <Modal isVisible={this.state.modalVisible} 
                     onRequestClose={this.closeModal.bind(this)} >    
-                    <View style={this.styles.content}>
+                    <View style={this.styles.dialog_container}>
                         <View style={{width:'100%', flexDirection : "row"}}>
                             <View style={{flex:1, margin: 5}}>
                                 <Button title="수정" onPress={this.onReqEdit.bind(this)} />
@@ -100,13 +164,17 @@ class Item extends Component  {
                 <TouchableOpacity onPress={this.onClickPressed.bind(this)}>
                     
                     <View style={{ flex: 1, flexDirection: "column" }}  >
-                        <Text>
-                            저장 시간 : [{this.props.record.title}]
-                        </Text>
-                        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }} >
-                            <Row data={this.tableHead} style={styles.head} textStyle={styles.text} />
-                            <Rows data={this.tableData} textStyle={styles.text}  />
+                        
+                        <Table borderStyle={{ flex:1,  borderWidth: 2, borderColor: '#F2FCFE' }} >
+                            <Row data={this.tableHead} style={this.styles.head} textStyle={this.styles.head_text} />
+                            <Rows data={this.tableData} textStyle={this.styles.row_text}  />
                         </Table>
+                        <View style={{height:25}    }>
+                            <Text style={this.styles.reg_date}>
+                                저장 시간 : [{this.props.record.title}]
+                            </Text>
+                        </View>
+                        
                     </View>
                 </TouchableOpacity>
             </View>
@@ -210,6 +278,7 @@ class VoteHistory extends Component {
                     data={this.state.data}
                     renderItem={({ item }) => 
                         <Item record={item} 
+                            
                             doMoveToChart={this.doMoveToChart.bind(this)}  
                             onMoveToEdit={this.doMoveToEdit.bind(this)} />}
                     keyExtractor={item => item.idx}
@@ -226,21 +295,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 30,
-        marginHorizontal: 16,
     },
-    item: {
-        backgroundColor: '#f9c2ff',
-        padding: 20,
-        marginVertical: 8,
-    },
+    
     header: {
         fontSize: 15,
     },
     content: {
         fontSize: 24,
     },
-    head: { height: 40, backgroundColor: '#f1f8ff', justifyContent: 'center' },
-    head_text: { margin: 3, textAlign: 'center' },
-    text: { margin: 1, alignItems: 'center', textAlign: 'center' }
+    
 });
 export default VoteHistory;

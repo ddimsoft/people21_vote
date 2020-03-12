@@ -8,7 +8,6 @@ import ViewShot from "react-native-view-shot";
 import Share from 'react-native-share';
 import { captureRef } from "react-native-view-shot";
 import * as EzConstants from "../common/Constants";
-import { toHsv } from 'react-native-color-picker';
 
 /**
  * EzRoadApp
