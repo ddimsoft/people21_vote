@@ -8,8 +8,7 @@
 
 import React from 'react';
 import 'react-native-gesture-handler';
-import { Text, View } from 'react-native';
-import { Ionicons } from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -26,13 +25,15 @@ const App: () => React$Node = () => {
   console.disableYellowBox = true;
   return (
     <>
-    <NavigationContainer>
-        <Tab.Navigator>
-        <Tab.Screen name="Prediction" component={Prediction} options={{tabBarLabel:'의석수계산'}} />
-        <Tab.Screen name="VoteHistory" component={VoteHistory} options={{tabBarLabel:'예측목록'}}/>
-        <Tab.Screen name="AboutPeople21" component={AboutPeople21} options={{tabBarLabel:'참여연대소개'}}/>
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={{flex:1}}>
+      <NavigationContainer>
+          <Tab.Navigator>
+          <Tab.Screen name="Prediction" component={Prediction} options={{tabBarLabel:'의석수계산'}} />
+          <Tab.Screen name="VoteHistory" component={VoteHistory} options={{tabBarLabel:'예측목록'}}/>
+          <Tab.Screen name="AboutPeople21" component={AboutPeople21} options={{tabBarLabel:'참여연대소개'}}/>
+        </Tab.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
     </>
   );
 };

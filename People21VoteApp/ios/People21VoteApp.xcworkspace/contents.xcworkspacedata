@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:People21VoteApp.swift">
+   </FileRef>
+   <FileRef
       location = "group:People21VoteApp.xcodeproj">
    </FileRef>
    <FileRef

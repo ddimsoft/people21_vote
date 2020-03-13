@@ -1,0 +1,27 @@
+npm install react-native-charts-wrapper
+npm install @babel/runtime
+
+Pod install 실행 후 
+[!] CocoaPods could not find compatible versions for pod "React/Core":....
+등의 에러가 나는 경우 
+
+프로젝트 루트에서 
+grep -rl "s.dependency 'React/Core'" node_modules/ | xargs sed -i '' 's=React/Core=React-Core=g'
+실행하면 됩니다. 
+
+* link subproject for react-native-charts-wrapper
+- ios
+add pod 'RNCharts', :path => '../node_modules/react-native-charts-wrapper' to ios/Podfile
+
+cd ios && pod install
+open People21VoteApp.xcodeproj with xcode
+
+Xcode에서 신규 swift를 생성할때 
+프롬프트 옵션에서 Create Bridge Header를 
+선택한 후 저장 하면 됩니다. 
+
+--- end of install react-native-charts-wrapper
+
+
+
+

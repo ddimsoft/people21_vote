@@ -19,6 +19,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* People21VoteAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* People21VoteAppTests.m */; };
 		7E6D13E68AA7D9C14AFDD18D /* libPods-People21VoteAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B6BE2E16B8EB0DE4A2E127 /* libPods-People21VoteAppTests.a */; };
 		9F609827F1F75994B34BE150 /* libPods-People21VoteApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2324ABF3C24C73B53BDB77BE /* libPods-People21VoteApp-tvOS.a */; };
+		E2C618FA241B056A00943056 /* People21VoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C618F9241B056A00943056 /* People21VoteApp.swift */; };
 		FBD6F1E98281A64CB27DBA1B /* libPods-People21VoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C24A69731958A6CC02F5456E /* libPods-People21VoteApp.a */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,8 @@
 		C24A69731958A6CC02F5456E /* libPods-People21VoteApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-People21VoteApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC380D1A6F877C6B910133B /* Pods-People21VoteApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People21VoteApp.release.xcconfig"; path = "Target Support Files/Pods-People21VoteApp/Pods-People21VoteApp.release.xcconfig"; sourceTree = "<group>"; };
 		D802B77F67FA3C84AC1485EA /* Pods-People21VoteApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People21VoteApp.debug.xcconfig"; path = "Target Support Files/Pods-People21VoteApp/Pods-People21VoteApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E2C618F8241B056A00943056 /* People21VoteApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "People21VoteApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		E2C618F9241B056A00943056 /* People21VoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = People21VoteApp.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -148,7 +151,6 @@
 				18CBB252B34E19FE71073E52 /* Pods-People21VoteAppTests.debug.xcconfig */,
 				3401F73D96D6372E13714EAE /* Pods-People21VoteAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,12 +177,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				E2C618F9241B056A00943056 /* People21VoteApp.swift */,
 				13B07FAE1A68108700A75B9A /* People21VoteApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* People21VoteAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				217AE17212DC6728D631ABB7 /* Pods */,
+				E2C618F8241B056A00943056 /* People21VoteApp-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -293,6 +297,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1130;
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -309,6 +316,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -579,6 +587,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				E2C618FA241B056A00943056 /* People21VoteApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +640,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18CBB252B34E19FE71073E52 /* Pods-People21VoteAppTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -654,6 +664,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3401F73D96D6372E13714EAE /* Pods-People21VoteAppTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = People21VoteAppTests/Info.plist;
@@ -675,6 +686,7 @@
 			baseConfigurationReference = D802B77F67FA3C84AC1485EA /* Pods-People21VoteApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = People21VoteApp/Info.plist;
@@ -686,6 +698,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = People21VoteApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "People21VoteApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -695,6 +710,7 @@
 			baseConfigurationReference = CCC380D1A6F877C6B910133B /* Pods-People21VoteApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = People21VoteApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -705,6 +721,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = People21VoteApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "People21VoteApp-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
