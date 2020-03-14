@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, Text, View, Button, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, Text, View, Button, Alert} from 'react-native';
+import { KeyboardAvoidingView, ScrollView , BackHandler} from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { DataBase } from '../common/DataBase';
 import  EzColorPicker  from '../common/EzColorPicker';
 import * as EzConstants from "../common/Constants";
+
+
 
 /**
  * 상단 타이틀 구현 
@@ -157,6 +160,7 @@ class PredictList extends Component {
     }
 }
 
+
 /**
  * 의석수 계산을 위해 
  * 입력폼을 생성 하는 
@@ -174,6 +178,26 @@ class PredictionDetail extends Component {
     }
 
     /**
+     * 종료 확인 이벤트를
+     * 정의 합니다. 
+     * 
+     * android의 경우에 
+     * 만 해당하는 기능 입니다. 
+     */
+    backAction = () => {
+        Alert.alert("확인", "종료하시겠습니까?", [
+          {
+            text: "취소",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "종료", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      };
+    
+
+    /**
      * navigation router param에 따라 
      * 신규 등록 모드/수정 모드가 구분 됩니다. 
      */
@@ -181,6 +205,8 @@ class PredictionDetail extends Component {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
             this.doToggleViewMode();
         });
+        // android back 버튼 이벤트를 등록 합니다. 
+        BackHandler.addEventListener("hardwareBackPress", this.backAction);
     }
 
     componentWillUnmount() {
