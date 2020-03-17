@@ -428,10 +428,11 @@ class PredictionDetail extends Component {
         }
 
         // 지지율 합계를 체크 합니다. 
-        if(result && this.state.current_ratio != 100) {
-            alert("지지율의 합계가 100이 되어야 합니다.  ");
+        if(result && this.state.current_ratio > 100) {
+            alert("지지율의 합계가 100이하가 되어야 합니다.  ");
             result = false;
         }
+        
         // 지역구 의석 합계를 체크 합니다. 
         if(result && this.state.current_local != 253) {
             alert("지역구 의석 합계가 253이 되어야 합니다.  ");
