@@ -35,4 +35,21 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
     }
+
+    // Add subprojects
+    // Uncommment in case of below exception occuers,
+    // Error:Error retrieving parent for item: No resource found that matches the given name 'android:Widget.Material.Button.Colored'.
+    /*
+    subprojects {
+        afterEvaluate {
+            project ->
+                if (project.hasProperty("android")) {
+                    android {
+                        compileSdkVersion = 28
+                        buildToolsVersion = "28.0.3"
+                    }
+                }
+        }
+    } 
+    */ 
 }
