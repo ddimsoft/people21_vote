@@ -146,21 +146,25 @@ class Item extends Component {
                 <Modal isVisible={this.state.modalVisible}
                     onRequestClose={this.closeModal.bind(this)} >
                     <View style={this.styles.dialog_container}>
-                        <View style={{ width: '100%', flexDirection: "row" }}>
-                            <View style={{ flex: 1, margin: 5 }}>
-                                <Button title="수정" onPress={this.onReqEdit.bind(this)} />
+                        <View style={{ width: '100%', flexDirection: "column" }}>
+                            <View style={{ width: '100%', flexDirection: "row" }}>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <Button title="수정" onPress={this.onReqEdit.bind(this)} />
+                                </View>
+                                
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <Button title="삭제" onPress={this.onReqDelete.bind(this)} />
+                                </View>
                             </View>
-                            <View style={{ flex: 1, margin: 5 }}>
-                                <Button title="차트보기" onPress={this.onReqMoveToChart.bind(this)} />
-                            </View>
-                            <View style={{ flex: 1, margin: 5 }}>
-                                <Button title="삭제" onPress={this.onReqDelete.bind(this)} />
-                            </View>
-                            <View style={{ flex: 1, margin: 5 }}>
-                                <Button title="닫기" onPress={this.closeModal.bind(this)} />
+                            <View style={{ width: '100%', flexDirection: "row" }}>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <Button title="차트보기" onPress={this.onReqMoveToChart.bind(this)} />
+                                </View>
+                                <View style={{ flex: 1, margin: 5 }}>
+                                    <Button title="닫기" onPress={this.closeModal.bind(this)} />
+                                </View>    
                             </View>
                         </View>
-
                     </View>
                 </Modal>
 
