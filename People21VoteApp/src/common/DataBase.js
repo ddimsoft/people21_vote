@@ -367,6 +367,43 @@ class DataBase {
         });
     }
 
+    /**
+     * 예측 이력을 
+     * DB에서 삭제 합니다. 
+     * 
+     * Todo. : 현재 predict_group Table에서 등록 상태 구분 필드가 없고, 
+     *         전체 목록 조회시 predict table에서만 조회 하는 구조 이므로 
+     *         predict_group의 데이터는 데이터 무결성을 위해 삭제 하지 않고 
+     *         predict table 에서 특정 
+     *         predictGroupId의 값을 가지는 Data만 삭제하는 방식으로 구현하였습니다. 
+     *         추후는 predict_group의 상태값 필드를 추가 하여 
+     *         작업 해야 합니다. 
+     *         2020.03.16 commented by choi young ho. 
+     * @param {} predictGroupId
+     */
+    async doDeleteByPredictGroupId(predictGroupId) {
+        console.log("[DataBase] Try to Detele Predict Group ID is : [" + predictGroupId + "]");
+        return new Promise((resolve, reject) => {
+            this.db.transaction((tx) => {
+                tx.executeSql(
+                    'delete from predict ' +
+                    ' where ' +
+                    '       predict_group_id = ? ', 
+                    [ 
+                        predictGroupId
+                    ],
+                    (tx, results) => {
+                        resolve(results.rowsAffected);
+                    },
+                    (err) => { 
+                        console.log(err);
+                        reject(err);
+                    }
+                );
+            });
+        });
+    }
+
 }
 
 export { DataBase }; 
