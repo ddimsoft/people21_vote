@@ -5,7 +5,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import { DataBase } from '../common/DataBase';
 import  EzColorPicker  from '../common/EzColorPicker';
 import * as EzConstants from "../common/Constants";
-
+import * as Progress from 'react-native-progress';
 
 
 /**
@@ -173,6 +173,7 @@ class PredictionDetail extends Component {
             data: [],
             current_ratio : 0,
             current_local : 0,
+            isLoading : false,
         }
         this.db = new DataBase();
     }
@@ -451,7 +452,10 @@ class PredictionDetail extends Component {
         if(!this.checkUserInput()) 
             return;
         
+        this.setState({isLoading:true});
+
         // 예측 결과 요청 
+
         RNFetchBlob.config({
             trusty: true
         })
@@ -461,6 +465,7 @@ class PredictionDetail extends Component {
             )
             .then((res) => {
                 let json = res.json();
+                this.setState({isLoading:false});
                 // Detail Page로 이동 합니다. 
                 this.props.navigation.navigate('VoteResult', { predictResult: json.rows , crudMode : this.crudMode});
             })
@@ -473,6 +478,9 @@ class PredictionDetail extends Component {
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <TitleBar />
+                <View style={{width : '100%', alignItems: 'center'}}>
+                { this.state.isLoading?  <Progress.Circle size={30}  indeterminate={true} /> : null}
+                </View>
                 <ScrollView>
                     <PredictList
                         style={{ flex: 1 }}
