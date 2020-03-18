@@ -3,7 +3,7 @@ import {Modal, Text, TouchableHighlight, View, Alert} from 'react-native';
 import { ColorPicker } from 'react-native-color-picker'
 
 /**
- * EzRoadApp
+ * Project : People21VoteApp
  * Class : EzColorPicker
  * Descrition : 칼라 선택  공통 Dialog 입니다. 
  *

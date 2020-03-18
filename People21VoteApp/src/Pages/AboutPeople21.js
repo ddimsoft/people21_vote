@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Image, Button, Text, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet , Dimensions, Linking} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as EzConstants from '../common/Constants';
 
 /**
- * EzRoadApp
+ * Project : People21VoteApp
  * Class : AboutPeople21
  * Descrition : 참여 연대 소개 페이지 입니다. 
  *
@@ -14,27 +15,54 @@ class AboutPeople21 extends Component {
         super(props)
     }
 
-    /*
-   <Image
-                        style={ {width:'100%', height:'100%' , resizeMode:'contain'}}
-                        source={require('../../resources/support_bn01.png')}/>
-    */
+    /**
+     * 특정 페이지로 이동 합니다. 
+     * @param {} optionStr 
+     */
+    doMoveToWeb(optionStr) {
+        Linking.openURL(optionStr)
+        .then()
+        .catch( (err) => {
+            console.log(err);
+        });
+    }
 
     render() {
+        var {height, width} = Dimensions.get('window');    
+
         return (
-            <View style={ {flexDirection:"column"} }>
-                <View>
-                    <Image
-                        style={ {width:'100%', height:'100%' , resizeMode:'contain'}}
-                        source={require('../../resources/support_bn01.png')}/>
-                </View>
-                <View style={styles.ButtonGroup}>
-                        <Button onPress={() => this.doStoreHistory()} title="저장하기" />
-                        <Button onPress={() => this.doMakeResultImage()} title="공유하기" />
+                <ScrollView style={{flex:1}} >
+                    <View style={ {flexDirection:"column"} }>
+                        <View>
+                            <TouchableOpacity onPress={() => {this.doMoveToWeb(EzConstants.OPEN_COUNCIL_URL)} }>
+                                <Image
+                                    style={ {width:width, height:300 , resizeMode:'stretch'}}
+                                    source={require('../../resources/app_design_cy_08_01.png')}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => {this.doMoveToWeb(EzConstants.ABOUT_PEOPLE_21_URL)} }>
+                                <Image
+                                    style={ {width:width, height:300 , resizeMode:'stretch'}}
+                                    source={require('../../resources/app_design_cy_08_02.png')}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => {this.doMoveToWeb(EzConstants.SUPPORT_PEOPLE_21_URL)} }>
+                                <Image
+                                    style={ {width:width, height:100 , resizeMode:'stretch'}}
+                                    source={require('../../resources/app_design_cy_08_03.png')}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => {this.doMoveToWeb(EzConstants.JOIN_NEW_LETTER_URL)} }>
+                                <Image
+                                    style={ {width:width, height:100 , resizeMode:'stretch'}}
+                                    source={require('../../resources/app_design_cy_08_04.png')}/>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-            </View>
-                
-            
+                </ScrollView>
             
         );
     }

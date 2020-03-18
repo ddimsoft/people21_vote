@@ -10,7 +10,8 @@ import { captureRef } from "react-native-view-shot";
 import * as EzConstants from "../common/Constants";
 
 /**
- * EzRoadApp
+ * Project : People21VoteApp
+ * 
  * Class : VoteResult
  * Descrition : 의석수 계산 결과를 
  *              보여주는 Class 입니다. 

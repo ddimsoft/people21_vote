@@ -10,6 +10,8 @@ import * as Progress from 'react-native-progress';
 
 
 /**
+ * Project : People21VoteApp
+ * 
  * Class : Item
  * Descrition : 하나의 predict_group의 
  *              데이터를 

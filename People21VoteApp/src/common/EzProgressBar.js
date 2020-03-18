@@ -3,6 +3,8 @@ import { View, Text} from 'react-native';
 import * as Progress from 'react-native-progress';
 
 /**
+ * Project : People21VoteApp
+ * 
  * Class : EzProgressBar
  * Descrition : ProgressBar 공통
  *              클래스 입니다. 

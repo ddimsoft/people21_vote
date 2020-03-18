@@ -1,6 +1,6 @@
 
 /**
- * EzRoadApp
+ * Project : People21VoteApp
  * Class : StrDateUtils
  * Descrition : 문자열 처리 공통 클래스 입니다. 
  *

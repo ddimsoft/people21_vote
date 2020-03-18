@@ -5,7 +5,7 @@ import { openDatabase } from 'react-native-sqlite-storage';
 
 
 /**
- * EzRoadApp
+ * Project : People21VoteApp
  * Class : DataBase
  * Descrition : DataBase관련 공통 클래스 입니다. 
  *
