@@ -1,0 +1,4 @@
+react-native set-icon --path ./resources/people21_icon.png --background "#FFFFFF"
+
+--background "#FFFFFF"
+react-native set-splash --path ./resources/app_design_cy_08_intro.png  --resize cover --background "#22C2C4"

@@ -6,6 +6,7 @@ import { DataBase } from '../common/DataBase';
 import  EzColorPicker  from '../common/EzColorPicker';
 import * as EzConstants from "../common/Constants";
 import * as Progress from 'react-native-progress';
+import SplashScreen from 'react-native-splash-screen'
 
 
 /**
@@ -80,7 +81,6 @@ class Item extends Component {
                         keyboardType='numeric'
                         selectTextOnFocus={true}
                         maxLength={5}
-                        value = {this.state.party_ratio}
                         onChangeText={text => {
                             let num_value = this.checkNumericDigit(text);
                             this.setState({ party_ratio: num_value });
@@ -118,7 +118,6 @@ class Item extends Component {
                         selectTextOnFocus={true}
                         keyboardType='numeric'
                         maxLength={3}
-                        value = {this.state.local}
                         onChangeText={text => {
                             let num_value = this.checkNumericDigit(text);
                             this.setState({ local: num_value });
@@ -171,6 +170,7 @@ class PredictionDetail extends Component {
         super(props);
         this.state = {
             data: [],
+            isRender : false,
             current_ratio : 0,
             current_local : 0,
             isLoading : false,
@@ -208,6 +208,12 @@ class PredictionDetail extends Component {
         });
         // android back 버튼 이벤트를 등록 합니다. 
         BackHandler.addEventListener("hardwareBackPress", this.backAction);
+
+        setTimeout(() => {
+            console.log("try to close splash....");
+            SplashScreen.hide();
+        }, 2000);
+        
     }
 
     componentWillUnmount() {
@@ -227,11 +233,17 @@ class PredictionDetail extends Component {
             //console.log(predictResult);
             this.crudMode = this.props.route.params.crudMode;
             this.setState({ data: predictResult });
+            // 정당 지지율 합계를 갱신 합니다. 
+            this.doReCalculatePartyRationSum();
+            // 지역 의석수 합계를 갱신 합니다. 
+            this.doReCalculateLoalSum();
         }
         else {
             this.crudMode = EzConstants.CRUD_MODE_INSERT;
             this.doInit();
         }
+
+         
     }
 
     /**
@@ -245,11 +257,11 @@ class PredictionDetail extends Component {
             await this.db.getLastPredictionList().then((predictList) => {
                 this.setState({ data: predictList });
             });
-
             // 정당 지지율 합계를 갱신 합니다. 
             this.doReCalculatePartyRationSum();
             // 지역 의석수 합계를 갱신 합니다. 
             this.doReCalculateLoalSum();
+            
         }
         catch (err) {
             console.log("[PredictionDetail]---------------------------------");
@@ -346,8 +358,9 @@ class PredictionDetail extends Component {
             this.state.data[idx] = obj;
         }
 
-        // 정당 지지율 합계를 갱신 합니다. 
-        this.doReCalculatePartyRationSum();
+        // 정당 지지율 합계를 갱신을 위해 state값을
+        // 변경 합니다. 
+        this.setState({isRender : true});
     }
 
     /**
@@ -370,8 +383,9 @@ class PredictionDetail extends Component {
             this.state.data[idx] = obj;
         }
         
-        // 지역 의석수 합계를 갱신 합니다. 
-        this.doReCalculateLoalSum();
+        // 정당 의석수 합계를 갱신을 위해 state값을
+        // 변경 합니다. 
+        this.setState({isRender : true});
     }
 
     /**
@@ -390,7 +404,8 @@ class PredictionDetail extends Component {
             alert("정당 지지율 합계를 100 이하로 설정해 주세요. ");
         }
 
-        this.setState({current_ratio:ratioTotal});
+        //this.setState({current_ratio:ratioTotal});
+        return ratioTotal;
     }
 
     /**
@@ -408,7 +423,8 @@ class PredictionDetail extends Component {
             alert("지역 의석수 합계는 최대 253개 입니다. ");
         }
 
-        this.setState({current_local:localTotal});
+        //this.setState({current_local:localTotal});
+        return localTotal;
     }
 
     /**
@@ -427,14 +443,17 @@ class PredictionDetail extends Component {
             }
         }
 
+        let ratioTotal = this.doReCalculatePartyRationSum();
+        let localTotal = this.doReCalculateLoalSum();
+
         // 지지율 합계를 체크 합니다. 
-        if(result && this.state.current_ratio > 100) {
+        if(result && ratioTotal > 100) {
             alert("지지율의 합계가 100이하가 되어야 합니다.  ");
             result = false;
         }
         
         // 지역구 의석 합계를 체크 합니다. 
-        if(result && this.state.current_local != 253) {
+        if(result && localTotal != 253) {
             alert("지역구 의석 합계가 253이 되어야 합니다.  ");
             result = false;
         }
@@ -476,6 +495,9 @@ class PredictionDetail extends Component {
     }
 
     render() {
+        let ratioTotal = this.doReCalculatePartyRationSum();
+        let localTotal = this.doReCalculateLoalSum();
+
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <TitleBar />
@@ -493,10 +515,10 @@ class PredictionDetail extends Component {
                         <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>합계</Text>
                     </View>
                     <View style={styles.title_bar_cell}>
-                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>{this.state.current_ratio}</Text>
+                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>{ratioTotal}</Text>
                     </View>
                     <View style={styles.title_bar_cell}>
-                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>({this.state.current_local}/253)</Text>
+                        <Text style={{ color: '#0DBCD3', fontWeight: 'bold' }}>({localTotal}/253)</Text>
                     </View>
                 </View>
                 <Button onPress={() => this.reqCalculate()} title="계산하기" />
