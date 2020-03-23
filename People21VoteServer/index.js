@@ -8,8 +8,8 @@ const app = express();
 const fs = require('fs');
 
 const options = {
-  key: fs.readFileSync('./ssl/renewhouse.iptime.org.key.pem'),
-  cert: fs.readFileSync('./ssl/renewhouse.iptime.org.crt.pem')
+  key: fs.readFileSync('./ssl/ezroad.co.kr.key.pem'),
+  cert: fs.readFileSync('./ssl/ezroad.co.kr.crt.pem')
 };
 
 // Other settings
@@ -28,4 +28,4 @@ app.use('/vote_predict', require('./api/vote_predic'));
 
 
 // Create an HTTPS service identical to the HTTP service.
-https.createServer(options, app).listen(8444);
+https.createServer(options, app).listen(3000);

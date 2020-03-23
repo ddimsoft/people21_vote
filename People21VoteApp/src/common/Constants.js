@@ -1,7 +1,8 @@
 export const CRUD_MODE_INSERT = '_insert';
 export const CRUD_MODE_EDIT = '_edit';
 
-export const SERVER_ADDRESS = 'https://renewhouse.iptime.org:8444/vote_predict/predict_result';
+//export const SERVER_ADDRESS = 'https://renewhouse.iptime.org:8444/vote_predict/predict_result';
+export const SERVER_ADDRESS = 'https://www.ezroad.co.kr:8446/vote_predict/predict_result';
 
 // 열러라 국회 외부 링크 URL 
 export const OPEN_COUNCIL_URL = 'http://bit.ly/39Du2Cf';
