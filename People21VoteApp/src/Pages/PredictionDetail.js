@@ -6,7 +6,8 @@ import { DataBase } from '../common/DataBase';
 import  EzColorPicker  from '../common/EzColorPicker';
 import * as EzConstants from "../common/Constants";
 import * as Progress from 'react-native-progress';
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen';
+import * as DarkModeUtils from './DarkModeUtils';
 
 
 /**
@@ -31,9 +32,11 @@ class TitleBar extends Component {
     }
 }
 
+
 /**
  * Predic 레코드를 정의 합니다. 
  */
+
 class Item extends Component {
     constructor(props) {
         super(props);
@@ -70,7 +73,7 @@ class Item extends Component {
 
     render() {
         let obj = this.props.obj;
-  
+
         // 정당별 득표율 TextField를 정의 합니다. 
         // 무소속인 경우 Text로 대체 합니다. 
         let ratioInput;
@@ -130,6 +133,7 @@ class Item extends Component {
     }
 }
 
+
 /**
  * 정당별 Input 항목 
  * 리스트 구현 Class 입니다. 
@@ -176,6 +180,8 @@ class PredictionDetail extends Component {
             isLoading : false,
         }
         this.db = new DataBase();
+
+    
     }
 
     /**
@@ -498,6 +504,8 @@ class PredictionDetail extends Component {
         let ratioTotal = this.doReCalculatePartyRationSum();
         let localTotal = this.doReCalculateLoalSum();
 
+        console.log(this.props);
+
         return (
             <KeyboardAvoidingView style={styles.container}>
                 <TitleBar />
@@ -584,6 +592,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 5,
         height: 40,
+        color: '#000000',
         borderColor: '#babbbc',
         backgroundColor: '#FFFFFF',
         borderWidth: 1,

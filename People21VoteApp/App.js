@@ -19,9 +19,12 @@ import Prediction from "./src/Pages/Prediction"
 import VoteHistory from "./src/Pages/VoteHistory"
 import AboutPeople21 from "./src/Pages/AboutPeople21"
 
+
+
 const Tab = createMaterialTopTabNavigator();
 
 const App =  ()  => {
+
   // yellow warning box를 비활성화 합니다. 
   console.disableYellowBox = true;
   return (

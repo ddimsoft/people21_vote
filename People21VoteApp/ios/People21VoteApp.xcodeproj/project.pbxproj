@@ -19,6 +19,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* People21VoteAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* People21VoteAppTests.m */; };
 		7E6D13E68AA7D9C14AFDD18D /* libPods-People21VoteAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60B6BE2E16B8EB0DE4A2E127 /* libPods-People21VoteAppTests.a */; };
 		9F609827F1F75994B34BE150 /* libPods-People21VoteApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2324ABF3C24C73B53BDB77BE /* libPods-People21VoteApp-tvOS.a */; };
+		E24FD3DD2431AEFE00841645 /* People21VoteAppUITests2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24FD3DC2431AEFE00841645 /* People21VoteAppUITests2.swift */; };
 		E2C618FA241B056A00943056 /* People21VoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C618F9241B056A00943056 /* People21VoteApp.swift */; };
 		FBD6F1E98281A64CB27DBA1B /* libPods-People21VoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C24A69731958A6CC02F5456E /* libPods-People21VoteApp.a */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "People21VoteApp-tvOS";
+		};
+		E24FD3DF2431AEFE00841645 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = People21VoteApp;
+		};
+		E2BCE5AA242DD00E00916253 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = People21VoteApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -66,6 +81,11 @@
 		C24A69731958A6CC02F5456E /* libPods-People21VoteApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-People21VoteApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC380D1A6F877C6B910133B /* Pods-People21VoteApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People21VoteApp.release.xcconfig"; path = "Target Support Files/Pods-People21VoteApp/Pods-People21VoteApp.release.xcconfig"; sourceTree = "<group>"; };
 		D802B77F67FA3C84AC1485EA /* Pods-People21VoteApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-People21VoteApp.debug.xcconfig"; path = "Target Support Files/Pods-People21VoteApp/Pods-People21VoteApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E24FD3DA2431AEFE00841645 /* People21VoteAppUITests2.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = People21VoteAppUITests2.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24FD3DC2431AEFE00841645 /* People21VoteAppUITests2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = People21VoteAppUITests2.swift; sourceTree = "<group>"; };
+		E24FD3DE2431AEFE00841645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2BCE5A0242DBB7500916253 /* People21VoteApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = People21VoteApp.entitlements; path = People21VoteApp/People21VoteApp.entitlements; sourceTree = "<group>"; };
+		E2BCE5A5242DD00E00916253 /* People21VoteAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = People21VoteAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C618F8241B056A00943056 /* People21VoteApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "People21VoteApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2C618F9241B056A00943056 /* People21VoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = People21VoteApp.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -105,6 +125,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E24FD3D72431AEFE00841645 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2BCE5A2242DD00E00916253 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -128,6 +162,7 @@
 		13B07FAE1A68108700A75B9A /* People21VoteApp */ = {
 			isa = PBXGroup;
 			children = (
+				E2BCE5A0242DBB7500916253 /* People21VoteApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -181,6 +216,7 @@
 				13B07FAE1A68108700A75B9A /* People21VoteApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* People21VoteAppTests */,
+				E24FD3DB2431AEFE00841645 /* People21VoteAppUITests2 */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				217AE17212DC6728D631ABB7 /* Pods */,
@@ -198,8 +234,19 @@
 				00E356EE1AD99517003FC87E /* People21VoteAppTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* People21VoteApp-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* People21VoteApp-tvOSTests.xctest */,
+				E2BCE5A5242DD00E00916253 /* People21VoteAppUITests.xctest */,
+				E24FD3DA2431AEFE00841645 /* People21VoteAppUITests2.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E24FD3DB2431AEFE00841645 /* People21VoteAppUITests2 */ = {
+			isa = PBXGroup;
+			children = (
+				E24FD3DC2431AEFE00841645 /* People21VoteAppUITests2.swift */,
+				E24FD3DE2431AEFE00841645 /* Info.plist */,
+			);
+			path = People21VoteAppUITests2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,12 +331,49 @@
 			productReference = 2D02E4901E0B4A5D006451C7 /* People21VoteApp-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		E24FD3D92431AEFE00841645 /* People21VoteAppUITests2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E24FD3E12431AEFE00841645 /* Build configuration list for PBXNativeTarget "People21VoteAppUITests2" */;
+			buildPhases = (
+				E24FD3D62431AEFE00841645 /* Sources */,
+				E24FD3D72431AEFE00841645 /* Frameworks */,
+				E24FD3D82431AEFE00841645 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E24FD3E02431AEFE00841645 /* PBXTargetDependency */,
+			);
+			name = People21VoteAppUITests2;
+			productName = People21VoteAppUITests2;
+			productReference = E24FD3DA2431AEFE00841645 /* People21VoteAppUITests2.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		E2BCE5A4242DD00E00916253 /* People21VoteAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2BCE5AC242DD00E00916253 /* Build configuration list for PBXNativeTarget "People21VoteAppUITests" */;
+			buildPhases = (
+				E2BCE5A1242DD00E00916253 /* Sources */,
+				E2BCE5A2242DD00E00916253 /* Frameworks */,
+				E2BCE5A3242DD00E00916253 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E2BCE5AB242DD00E00916253 /* PBXTargetDependency */,
+			);
+			name = People21VoteAppUITests;
+			productName = People21VoteAppUITests;
+			productReference = E2BCE5A5242DD00E00916253 /* People21VoteAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -298,6 +382,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 7TDDK2T5AD;
 						LastSwiftMigration = 1130;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -308,6 +393,16 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
+					};
+					E24FD3D92431AEFE00841645 = {
+						CreatedOnToolsVersion = 11.4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					E2BCE5A4242DD00E00916253 = {
+						CreatedOnToolsVersion = 11.4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -329,6 +424,8 @@
 				00E356ED1AD99517003FC87E /* People21VoteAppTests */,
 				2D02E47A1E0B4A5D006451C7 /* People21VoteApp-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* People21VoteApp-tvOSTests */,
+				E2BCE5A4242DD00E00916253 /* People21VoteAppUITests */,
+				E24FD3D92431AEFE00841645 /* People21VoteAppUITests2 */,
 			);
 		};
 /* End PBXProject section */
@@ -359,6 +456,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2D02E48E1E0B4A5D006451C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E24FD3D82431AEFE00841645 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2BCE5A3242DD00E00916253 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -608,6 +719,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E24FD3D62431AEFE00841645 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E24FD3DD2431AEFE00841645 /* People21VoteAppUITests2.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2BCE5A1242DD00E00916253 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -620,6 +746,16 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* People21VoteApp-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		E24FD3E02431AEFE00841645 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* People21VoteApp */;
+			targetProxy = E24FD3DF2431AEFE00841645 /* PBXContainerItemProxy */;
+		};
+		E2BCE5AB242DD00E00916253 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* People21VoteApp */;
+			targetProxy = E2BCE5AA242DD00E00916253 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -687,16 +823,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = People21VoteApp/People21VoteApp.entitlements;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 7TDDK2T5AD;
 				INFOPLIST_FILE = People21VoteApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ddimsoft.people21VoteApp;
 				PRODUCT_NAME = People21VoteApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "People21VoteApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -711,15 +850,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = People21VoteApp/People21VoteApp.entitlements;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 7TDDK2T5AD;
 				INFOPLIST_FILE = People21VoteApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ddimsoft.people21VoteApp;
 				PRODUCT_NAME = People21VoteApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "People21VoteApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -936,6 +1078,112 @@
 			};
 			name = Release;
 		};
+		E24FD3E22431AEFE00841645 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = People21VoteAppUITests2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ddimsoft.co.kr.People21VoteAppUITests2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = People21VoteApp;
+			};
+			name = Debug;
+		};
+		E24FD3E32431AEFE00841645 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = People21VoteAppUITests2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ddimsoft.co.kr.People21VoteAppUITests2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = People21VoteApp;
+			};
+			name = Release;
+		};
+		E2BCE5AD242DD00E00916253 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = People21VoteAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ddimsoft.co.kr.People21VoteAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = People21VoteApp;
+			};
+			name = Debug;
+		};
+		E2BCE5AE242DD00E00916253 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = People21VoteAppUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ddimsoft.co.kr.People21VoteAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = People21VoteApp;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -980,6 +1228,24 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E24FD3E12431AEFE00841645 /* Build configuration list for PBXNativeTarget "People21VoteAppUITests2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E24FD3E22431AEFE00841645 /* Debug */,
+				E24FD3E32431AEFE00841645 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2BCE5AC242DD00E00916253 /* Build configuration list for PBXNativeTarget "People21VoteAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2BCE5AD242DD00E00916253 /* Debug */,
+				E2BCE5AE242DD00E00916253 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

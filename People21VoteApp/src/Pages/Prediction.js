@@ -14,16 +14,14 @@ const Stack = createStackNavigator();
  *
  * Created By 최영호 on 2020-02-28
  */
-const Prediction = () => {
-    
+const Prediction = (props) => {
     
     return (
         <Stack.Navigator>
             <Stack.Screen
             name="PredictionDetail"
             component={PredictionDetail}
-            options={{title: '의석수계산'}}
-            />
+            options={{title: '의석수계산' }} />
             <Stack.Screen name="VoteResult" component={VoteResult} options={{title:'계산결과'}} />
         </Stack.Navigator>
     );
